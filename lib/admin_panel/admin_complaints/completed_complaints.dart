@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../admin_drawer.dart';
 
-class CompletedComplaintsScreen extends StatefulWidget {
-  const CompletedComplaintsScreen({Key? key}) : super(key: key);
+class AdminCompletedComplaintsScreen extends StatefulWidget {
+  const AdminCompletedComplaintsScreen({Key? key}) : super(key: key);
 
   @override
-  State<CompletedComplaintsScreen> createState() =>
-      _CompletedComplaintsScreenState();
+  State<AdminCompletedComplaintsScreen> createState() =>
+      _AdminCompletedComplaintsScreenState();
 }
 
-class _CompletedComplaintsScreenState extends State<CompletedComplaintsScreen> {
+class _AdminCompletedComplaintsScreenState
+    extends State<AdminCompletedComplaintsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +26,10 @@ class _CompletedComplaintsScreenState extends State<CompletedComplaintsScreen> {
             icon: const Icon(Icons.arrow_back)),
       ),
       drawer: const AdminDrawer(),
-      body: const Center(
-        child: Text('Completed Complaints Will Appear Here'),
+      body: const SingleChildScrollView(
+        child: Center(
+          child: Text('Completed Complaints Will Appear Here'),
+        ),
       ),
     );
   }

@@ -108,13 +108,6 @@ class _makecomplaintState extends State<makecomplaint> {
                   //contentPadding: EdgeInsets.symmetric(vertical: 50),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [],
-                ),
-              ),
               const TextField(
                 style: TextStyle(color: Color.fromARGB(255, 19, 18, 18)),
                 decoration: InputDecoration(

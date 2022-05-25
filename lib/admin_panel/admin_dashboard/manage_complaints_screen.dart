@@ -73,7 +73,7 @@ class _ManageComplaintsState extends State<ManageComplaints> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const CompletedComplaintsScreen()));
+                                const AdminCompletedComplaintsScreen()));
                   },
                   child: const Text('Complete Complaints'),
                 ),
@@ -90,7 +90,7 @@ class _ManageComplaintsState extends State<ManageComplaints> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const ComplaintsHistoryScreen()));
+                                const AdminComplaintsHistoryScreen()));
                   },
                   child: const Text('Complaints history'),
                 ),

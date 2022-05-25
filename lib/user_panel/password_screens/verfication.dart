@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/password_screens/resetpassward.dart';
+import 'package:login/user_panel/password_screens/resetpassward.dart';
 import 'package:otp_text_field/otp_field.dart';
 
 class verification extends StatefulWidget {

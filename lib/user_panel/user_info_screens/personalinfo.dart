@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/components_app/app_drawer.dart';
-import 'package:login/dashboard_screens/app_dashboard.dart';
+import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
 
 class personalinfo extends StatefulWidget {
   const personalinfo({Key? key}) : super(key: key);
@@ -136,7 +136,7 @@ class _personalinfoState extends State<personalinfo> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const DashBoardScreen()),
+                          builder: (context) => const UserDashBoardScreen()),
                     );
                   },
                 ),

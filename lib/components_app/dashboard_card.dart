@@ -18,7 +18,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 140.0,
-      height: 170.0,
+      height: 180.0,
       child: Card(
         color: const Color.fromARGB(255, 233, 241, 245),
         elevation: 2.0,
@@ -30,7 +30,7 @@ class _DashBoardCardState extends State<DashBoardCard> {
                   MaterialStateProperty.all(Colors.blueGrey.shade100)),
           onPressed: widget.onPressed,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 Image.asset("assets/google-docs (2).png", width: 69.0),

@@ -25,15 +25,17 @@ class _PendingComplainsScreensState extends State<PendingComplainsScreens> {
             icon: const Icon(Icons.arrow_back)),
       ),
       drawer: const AdminDrawer(),
-      body: Center(
-          child: Column(
-        children: const [
-          ComplaintCard(
-            buttonText: 'Solve it',
-          ),
-          ComplaintCard()
-        ],
-      )),
+      body: SingleChildScrollView(
+        child: Center(
+            child: Column(
+          children: const [
+            ComplaintCard(
+              buttonText: 'Solve it',
+            ),
+            ComplaintCard()
+          ],
+        )),
+      ),
     );
   }
 }

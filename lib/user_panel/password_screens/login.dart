@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login/dashboard_screens/app_dashboard.dart';
-
+import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
 import 'forgotpassward.dart';
 
 class login extends StatefulWidget {
@@ -150,7 +149,7 @@ class _loginState extends State<login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const DashBoardScreen(),
+                              builder: (context) => const UserDashBoardScreen(),
                             ),
                           );
                         },

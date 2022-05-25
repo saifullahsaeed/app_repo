@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:login/options_screen.dart';
 
 import 'admin_dashboard/admin_dashboard.dart';
 import 'admin_dashboard/manage_complaints_screen.dart';
-import 'admin_login.dart';
 
 class AdminDrawer extends StatefulWidget {
   const AdminDrawer({Key? key}) : super(key: key);
@@ -68,8 +68,7 @@ class _AdminDrawerState extends State<AdminDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const AdminLoginScreen()),
+                MaterialPageRoute(builder: (context) => const OptionsScreen()),
               );
             },
           ),

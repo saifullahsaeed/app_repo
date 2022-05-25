@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/password_screens/login.dart';
 
 import 'admin_panel/admin_login.dart';
+import 'user_panel/password_screens/login.dart';
 
 class OptionsScreen extends StatefulWidget {
   const OptionsScreen({Key? key}) : super(key: key);

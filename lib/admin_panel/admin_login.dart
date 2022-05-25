@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login/admin_panel/admin_dashboard/admin_dashboard.dart';
 import 'package:login/options_screen.dart';
-
-import '../password_screens/forgotpassward.dart';
+import 'package:login/user_panel/password_screens/forgotpassward.dart';
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({Key? key}) : super(key: key);

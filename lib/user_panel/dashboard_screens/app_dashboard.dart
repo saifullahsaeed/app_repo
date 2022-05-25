@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:login/admin_panel/admin_complaints/completed_complaints.dart';
 import 'package:login/admin_panel/admin_complaints/in_progress_complaints.dart';
 import 'package:login/components_app/app_drawer.dart';
 
-import '../admin_panel/admin_complaints/pending_complaints.dart';
-import '../components_app/dashboard_card.dart';
+import '../../admin_panel/admin_complaints/pending_complaints.dart';
+import '../../components_app/dashboard_card.dart';
 
-class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({Key? key}) : super(key: key);
+class UserDashBoardScreen extends StatefulWidget {
+  const UserDashBoardScreen({Key? key}) : super(key: key);
 
   @override
-  State<DashBoardScreen> createState() => _DashBoardScreenState();
+  State<UserDashBoardScreen> createState() => _UserDashBoardScreenState();
 }
 
-class _DashBoardScreenState extends State<DashBoardScreen> {
+class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Admin DashBoard'),
+        title: const Text('Student DashBoard'),
       ),
       drawer: const MyAppDrawer(),
       body: Stack(
@@ -65,7 +64,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const CompletedComplaintsScreen()));
+                                const UserCompletedComplaintsScreen()));
                   },
                 ),
               ],

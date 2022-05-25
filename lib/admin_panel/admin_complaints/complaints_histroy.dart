@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:login/components_app/complaint_card.dart';
 
 import '../admin_drawer.dart';
 
-class ComplaintsHistoryScreen extends StatefulWidget {
-  const ComplaintsHistoryScreen({Key? key}) : super(key: key);
+class AdminComplaintsHistoryScreen extends StatefulWidget {
+  const AdminComplaintsHistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<ComplaintsHistoryScreen> createState() =>
-      _ComplaintsHistoryScreenState();
+  State<AdminComplaintsHistoryScreen> createState() =>
+      _AdminComplaintsHistoryScreenState();
 }
 
-class _ComplaintsHistoryScreenState extends State<ComplaintsHistoryScreen> {
+class _AdminComplaintsHistoryScreenState
+    extends State<AdminComplaintsHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Complaints Complaints'),
+        title: const Text('Complaints History'),
         centerTitle: true,
         leading: IconButton(
             splashRadius: 25,
@@ -25,8 +27,20 @@ class _ComplaintsHistoryScreenState extends State<ComplaintsHistoryScreen> {
             icon: const Icon(Icons.arrow_back)),
       ),
       drawer: const AdminDrawer(),
-      body: const Center(
-        child: Text('Complaints histroy Will Appear Here'),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              children: const [
+                ComplaintCard(),
+                ComplaintCard(),
+                ComplaintCard(),
+                ComplaintCard()
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

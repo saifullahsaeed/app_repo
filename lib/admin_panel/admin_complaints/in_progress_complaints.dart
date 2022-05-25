@@ -26,8 +26,10 @@ class _InProgressComplaintsScreenState
               icon: const Icon(Icons.arrow_back)),
         ),
         drawer: const AdminDrawer(),
-        body: const Center(
-          child: Text('InProgress Complaints Will Appear Here'),
+        body: const SingleChildScrollView(
+          child: Center(
+            child: Text('InProgress Complaints Will Appear Here'),
+          ),
         ));
   }
 }

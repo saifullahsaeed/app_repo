@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/dashboard_screens/app_dashboard.dart';
+import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
 
 import 'login.dart';
 
@@ -149,7 +149,7 @@ class _signupState extends State<signup> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const DashBoardScreen()),
+                          builder: (context) => const UserDashBoardScreen()),
                     );
                   },
                   child: const Text("Register"),

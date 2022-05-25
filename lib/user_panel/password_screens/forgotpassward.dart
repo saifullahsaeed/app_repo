@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/password_screens/verfication.dart';
+import 'package:login/user_panel/password_screens/verfication.dart';
 
 class forgotpassward extends StatefulWidget {
   const forgotpassward({Key? key}) : super(key: key);

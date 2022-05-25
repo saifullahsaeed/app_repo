@@ -58,7 +58,7 @@ class _AdminDashBoardState extends State<AdminDashBoard> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            const CompletedComplaintsScreen()));
+                            const AdminCompletedComplaintsScreen()));
               },
             ),
           ],
