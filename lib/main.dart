@@ -1,3 +1,4 @@
+import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login/options_screen.dart';
@@ -15,12 +16,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const OptionsScreen(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: EasySplashScreen(
+          backgroundImage: const AssetImage(
+            'assets/backgr.jpg',
+          ),
+          logo: const Image(
+            image: AssetImage('assets/logoforAPPFinal.PNG'),
+          ),
+          logoSize: 100,
+          title: const Text(
+            "Complaint Management System",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: Colors.grey.shade400,
+          showLoader: true,
+          loadingText: const Text("Loading..."),
+          navigator: const OptionsScreen(),
+          durationInSeconds: 5,
+        ));
   }
 }
