@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'login.dart';
 
-class resetpassward extends StatefulWidget {
-  const resetpassward({Key? key}) : super(key: key);
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<resetpassward> createState() => _resetpasswardState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _resetpasswardState extends State<resetpassward> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +94,8 @@ class _resetpasswardState extends State<resetpassward> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const login()),
+                    MaterialPageRoute(
+                        builder: (context) => const UserLoginScreen()),
                   );
                 },
                 child: const Text(

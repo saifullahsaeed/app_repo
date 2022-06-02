@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:login/components_app/app_drawer.dart';
 import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
 
-class personalinfo extends StatefulWidget {
-  const personalinfo({Key? key}) : super(key: key);
+class PersonalInformationScreen extends StatefulWidget {
+  const PersonalInformationScreen({Key? key}) : super(key: key);
 
   @override
-  State<personalinfo> createState() => _personalinfoState();
+  State<PersonalInformationScreen> createState() =>
+      _PersonalInformationScreenState();
 }
 
-class _personalinfoState extends State<personalinfo> {
+class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

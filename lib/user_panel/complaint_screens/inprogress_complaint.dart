@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:login/components_app/app_drawer.dart';
 
-class inprogress_complaint extends StatelessWidget {
-  const inprogress_complaint({Key? key}) : super(key: key);
+class InProgressComplaints extends StatelessWidget {
+  const InProgressComplaints({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

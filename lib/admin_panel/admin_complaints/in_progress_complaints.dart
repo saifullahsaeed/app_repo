@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:login/components_app/complaint_card.dart';
 
 import '../admin_drawer.dart';
 
 class InProgressComplaintsScreen extends StatefulWidget {
-  const InProgressComplaintsScreen({Key? key}) : super(key: key);
+  const InProgressComplaintsScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<InProgressComplaintsScreen> createState() =>
@@ -12,6 +15,11 @@ class InProgressComplaintsScreen extends StatefulWidget {
 
 class _InProgressComplaintsScreenState
     extends State<InProgressComplaintsScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +34,16 @@ class _InProgressComplaintsScreenState
               icon: const Icon(Icons.arrow_back)),
         ),
         drawer: const AdminDrawer(),
-        body: const SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Center(
-            child: Text('InProgress Complaints Will Appear Here'),
+            child: SingleChildScrollView(
+              child: Column(children: const [
+                ComplaintCard(),
+                ComplaintCard(),
+                ComplaintCard(),
+                ComplaintCard(),
+              ]),
+            ),
           ),
         ));
   }

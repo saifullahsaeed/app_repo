@@ -1,7 +1,12 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:login/options_screen.dart';
+
+displayMessage(String message) {
+  Fluttertoast.showToast(msg: message);
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +45,7 @@ class MyApp extends StatelessWidget {
           showLoader: true,
           loadingText: const Text("Loading..."),
           navigator: const OptionsScreen(),
-          durationInSeconds: 5,
+          durationInSeconds: 1,
         ));
   }
 }

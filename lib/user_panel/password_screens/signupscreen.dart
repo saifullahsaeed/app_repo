@@ -3,14 +3,14 @@ import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
 
 import 'login.dart';
 
-class signup extends StatefulWidget {
-  const signup({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<signup> createState() => _signupState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _signupState extends State<signup> {
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,9 +53,9 @@ class _signupState extends State<signup> {
                   children: const [],
                 ),
               ),
-              const TextField(
-                style: TextStyle(color: Color.fromARGB(255, 19, 18, 18)),
-                decoration: InputDecoration(
+              TextFormField(
+                style: const TextStyle(color: Color.fromARGB(255, 19, 18, 18)),
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: "First Name",
                   hintText: "Enter Your First Name",
@@ -173,7 +173,8 @@ class _signupState extends State<signup> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const login()),
+                        MaterialPageRoute(
+                            builder: (context) => const UserLoginScreen()),
                       );
                     },
                     child: const Text(

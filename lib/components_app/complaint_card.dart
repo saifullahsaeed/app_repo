@@ -13,7 +13,9 @@ class ComplaintCard extends StatefulWidget {
       this.userName,
       this.complaintId,
       this.buttonText,
-      this.onPressed})
+      this.onPressed,
+      this.imageUrl,
+      this.onTapViewFile})
       : super(key: key);
 
   final String? userName;
@@ -25,6 +27,8 @@ class ComplaintCard extends StatefulWidget {
   final String? description;
   final String? buttonText;
   final VoidCallback? onPressed;
+  final String? imageUrl;
+  final VoidCallback? onTapViewFile;
 
   @override
   State<ComplaintCard> createState() => _ComplaintCardState();
@@ -46,9 +50,19 @@ class _ComplaintCardState extends State<ComplaintCard> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Username: ${widget.userName}, ID: ${widget.complaintId}',
-                      style: kTextStyle.copyWith(fontSize: 16),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Username: ${widget.userName}',
+                          style: kTextStyle.copyWith(fontSize: 16),
+                        ),
+                        Text(
+                          'ID: ${widget.complaintId}',
+                          style: kTextStyle.copyWith(fontSize: 16),
+                        ),
+                      ],
                     ),
                     ElevatedButton(
                       onPressed: widget.onPressed,
@@ -79,7 +93,7 @@ class _ComplaintCardState extends State<ComplaintCard> {
                           children: [
                             const Text('File: '),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: widget.onTapViewFile,
                                 child: const Text('View File'))
                           ],
                         ),

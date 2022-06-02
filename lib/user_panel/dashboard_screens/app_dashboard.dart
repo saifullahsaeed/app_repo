@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login/admin_panel/admin_complaints/in_progress_complaints.dart';
 import 'package:login/components_app/app_drawer.dart';
 
-import '../../admin_panel/admin_complaints/pending_complaints.dart';
 import '../../components_app/dashboard_card.dart';
 
 class UserDashBoardScreen extends StatefulWidget {
@@ -42,7 +40,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const PendingComplainsScreens()));
+                                const UserPendingComplainsScreens()));
                   },
                 ),
                 DashBoardCard(
@@ -53,7 +51,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                const InProgressComplaintsScreen()));
+                                const UserInProgressComplaintsScreen()));
                   },
                 ),
                 DashBoardCard(

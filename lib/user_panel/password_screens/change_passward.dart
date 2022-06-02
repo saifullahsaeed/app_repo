@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'login.dart';
 
-class change_Passward extends StatefulWidget {
-  const change_Passward({Key? key}) : super(key: key);
+class ChangeUserPassword extends StatefulWidget {
+  const ChangeUserPassword({Key? key}) : super(key: key);
 
   @override
-  State<change_Passward> createState() => _change_PasswardState();
+  State<ChangeUserPassword> createState() => _ChangeUserPasswordState();
 }
 
-class _change_PasswardState extends State<change_Passward> {
+class _ChangeUserPasswordState extends State<ChangeUserPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +112,8 @@ class _change_PasswardState extends State<change_Passward> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const login()),
+                        MaterialPageRoute(
+                            builder: (context) => const UserLoginScreen()),
                       );
                     },
                   ),

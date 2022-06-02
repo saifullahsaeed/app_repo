@@ -1,6 +1,7 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:login/components_app/app_drawer.dart';
+import 'package:login/main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     if (await canLaunchUrl(Uri.parse(_url))) {
       await launchUrl(Uri.parse(_url));
     } else {
-      print('Something went wrong');
+      displayMessage('Something went wrong');
     }
   }
 

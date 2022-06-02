@@ -1,31 +1,59 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:login/components_app/reusable_textfield.dart';
+import 'package:login/main.dart';
 import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
+import 'package:login/user_panel/password_screens/register_user_screen.dart';
 import 'forgotpassward.dart';
 
-class login extends StatefulWidget {
-  const login({Key? key}) : super(key: key);
+class UserLoginScreen extends StatefulWidget {
+  const UserLoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<login> createState() => _loginState();
+  State<UserLoginScreen> createState() => _UserLoginScreenState();
 }
 
-class _loginState extends State<login> {
+class _UserLoginScreenState extends State<UserLoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final databaseReference = FirebaseDatabase.instance.ref().child('Users');
 
-  Future signUpUser() async {
-    try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-              email: _emailController.text.toString(),
-              password: _passwordController.text.toString());
-      return userCredential;
-    } on FirebaseAuthException catch (e) {
-      print(e.toString());
+  static void checkSignedIn(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const UserDashBoardScreen()));
     }
+  }
+
+  Future signInUser(BuildContext context, String email, String password) async {
+    try {
+      final newUser = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      // ignore: unnecessary_null_comparison
+      if (newUser != null) {
+        // ignore: await_only_futures
+        final User user = await _auth.currentUser!;
+        final userID = user.uid;
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const UserDashBoardScreen()));
+
+        return userID;
+      }
+    } on FirebaseAuthException catch (e) {
+      displayMessage(e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkSignedIn(context);
   }
 
   // @override
@@ -81,28 +109,17 @@ class _loginState extends State<login> {
                           fontSize: 24,
                           fontWeight: FontWeight.w500),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            labelText: "Username/Email",
-                            prefixIcon: const Icon(Icons.people),
-                            border: myinputborder(),
-                            enabledBorder: myinputborder(),
-                            focusedBorder: myfocusborder(),
-                          )),
+                    ReusableTextField(
+                      icon: Icons.mail,
+                      labelText: 'Email/Username',
+                      controller: _emailController,
+                      obsecureText: false,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                          controller: _passwordController,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.lock),
-                            labelText: "Password",
-                            enabledBorder: myinputborder(),
-                            focusedBorder: myfocusborder(),
-                          )),
+                    ReusableTextField(
+                      icon: Icons.lock,
+                      labelText: 'Password',
+                      controller: _passwordController,
+                      obsecureText: true,
                     ),
                     const SizedBox(
                       height: 10,
@@ -111,7 +128,7 @@ class _loginState extends State<login> {
                       children: <Widget>[
                         TextButton(
                           child: const Text(
-                            " Forgot Password",
+                            "Forgot Password",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xfff11212)),
@@ -120,7 +137,8 @@ class _loginState extends State<login> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const forgotpassward()),
+                                  builder: (context) =>
+                                      const ForgotPasswordScreen()),
                             );
                             //signup screen
                           },
@@ -145,14 +163,8 @@ class _loginState extends State<login> {
                             Colors.white,
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const UserDashBoardScreen(),
-                            ),
-                          );
-                        },
+                        onPressed: () => signInUser(context,
+                            _emailController.text, _passwordController.text),
                       ),
                     ),
                     const SizedBox(
@@ -174,7 +186,8 @@ class _loginState extends State<login> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const login()),
+                                  builder: (context) =>
+                                      const UserRegistration()),
                             );
 
                             //signup screen
@@ -191,26 +204,4 @@ class _loginState extends State<login> {
       ),
     );
   }
-
-  OutlineInputBorder myinputborder() {
-    //return type is OutlineInputBorder
-    return const OutlineInputBorder(
-        //Outline border type for TextFeild
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        borderSide: BorderSide(
-          color: Color.fromARGB(255, 66, 160, 189),
-          width: 3,
-        ));
-  }
-
-  OutlineInputBorder myfocusborder() {
-    return const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        borderSide: BorderSide(
-          color: Color.fromARGB(255, 64, 166, 184),
-          width: 3,
-        ));
-  }
-
-  //create a function like this so that you can use it wherever you want
 }

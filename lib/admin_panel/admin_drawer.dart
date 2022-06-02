@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login/options_screen.dart';
 
@@ -14,6 +15,14 @@ class AdminDrawer extends StatefulWidget {
 class _AdminDrawerState extends State<AdminDrawer> {
   final ImageProvider? userImage = const NetworkImage(
       'https://media.istockphoto.com/photos/hot-air-balloons-flying-over-the-botan-canyon-in-turkey-picture-id1297349747?s=612x612');
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signOut(BuildContext context) async {
+    await _auth.signOut();
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const OptionsScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,15 +72,11 @@ class _AdminDrawerState extends State<AdminDrawer> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text("Log Out"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const OptionsScreen()),
-              );
-            },
-          ),
+              leading: const Icon(Icons.logout),
+              title: const Text("Log Out"),
+              onTap: () {
+                _signOut(context);
+              }),
         ],
       ),
     );

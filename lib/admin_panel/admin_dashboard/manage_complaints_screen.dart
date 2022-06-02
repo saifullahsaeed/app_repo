@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:login/admin_panel/admin_complaints/complaints_histroy.dart';
 import 'package:login/admin_panel/admin_complaints/completed_complaints.dart';
 import 'package:login/admin_panel/admin_complaints/pending_complaints.dart';
-
 import '../admin_complaints/in_progress_complaints.dart';
 
 class ManageComplaints extends StatefulWidget {
@@ -36,10 +35,11 @@ class _ManageComplaintsState extends State<ManageComplaints> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const PendingComplainsScreens()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PendingComplainsScreens(),
+                      ),
+                    );
                   },
                   child: const Text('Pending Complaints'),
                 ),

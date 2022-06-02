@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:login/user_panel/password_screens/verfication.dart';
 
-class forgotpassward extends StatefulWidget {
-  const forgotpassward({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<forgotpassward> createState() => _forgotpasswardState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _forgotpasswardState extends State<forgotpassward> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -126,7 +126,7 @@ class _forgotpasswardState extends State<forgotpassward> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const verification()));
+                        builder: (context) => const VerificationScreen()));
               },
             ),
           ),

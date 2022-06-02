@@ -39,6 +39,7 @@ class _FileListState extends State<FileList> {
   }
 
   Widget buildListFile(PlatformFile files) {
+    // ignore: prefer_typing_uninitialized_variables
     var file;
     return ListTile(
       title: Text('${file.name}'),

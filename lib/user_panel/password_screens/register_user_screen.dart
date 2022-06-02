@@ -1,54 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:login/admin_panel/admin_dashboard/admin_dashboard.dart';
 import 'package:login/main.dart';
-import 'package:login/options_screen.dart';
-import 'package:login/user_panel/password_screens/forgotpassward.dart';
+import '../../components_app/reusable_textfield.dart';
+import 'forgotpassward.dart';
+import 'login.dart';
 
-class AdminLoginScreen extends StatefulWidget {
-  const AdminLoginScreen({Key? key}) : super(key: key);
+class UserRegistration extends StatefulWidget {
+  const UserRegistration({Key? key}) : super(key: key);
 
   @override
-  State<AdminLoginScreen> createState() => _AdminLoginScreenState();
+  State<UserRegistration> createState() => _UserRegistrationState();
 }
 
-class _AdminLoginScreenState extends State<AdminLoginScreen> {
+class _UserRegistrationState extends State<UserRegistration> {
+  final databaseReference = FirebaseDatabase.instance.ref().child('Users');
+
+  final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future signUpUser() async {
-    try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-              email: _emailController.text.toString(),
-              password: _passwordController.text.toString());
-      return userCredential;
-    } on FirebaseAuthException catch (e) {
+  void signUpUser() {
+    try {} on FirebaseAuthException catch (e) {
       displayMessage(e.toString());
     }
   }
-
-  // @override
-  // void initState() {
-  //   username.text = ""; //innitail value of text field
-  //   password.text = "";
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const OptionsScreen()));
-          },
-        ),
         centerTitle: true,
         title: const Text("Complaint Management System"),
         flexibleSpace: Container(
@@ -84,34 +66,26 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       backgroundImage: AssetImage('assets/logoforAPPFinal.PNG'),
                     ),
                     const Text(
-                      'Admin Login',
+                      'Student Registration',
                       style: TextStyle(
                           color: Colors.blueAccent,
                           fontSize: 24,
                           fontWeight: FontWeight.w500),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            labelText: "Username/Email",
-                            prefixIcon: const Icon(Icons.people),
-                            border: myinputborder(),
-                            enabledBorder: myinputborder(),
-                            focusedBorder: myfocusborder(),
-                          )),
+                    ReusableTextField(
+                      controller: _userNameController,
+                      labelText: 'Username',
+                      icon: Icons.person,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: TextFormField(
-                          controller: _passwordController,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.lock),
-                            labelText: "Password",
-                            enabledBorder: myinputborder(),
-                            focusedBorder: myfocusborder(),
-                          )),
+                    ReusableTextField(
+                      controller: _emailController,
+                      labelText: 'Email',
+                      icon: Icons.mail,
+                    ),
+                    ReusableTextField(
+                      controller: _passwordController,
+                      labelText: 'Password',
+                      icon: Icons.lock,
                     ),
                     const SizedBox(
                       height: 10,
@@ -146,24 +120,16 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                       width: size.width,
                       padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
                       child: ElevatedButton(
-                        child: const Text("Login"),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                            const Color(0xff3195D8),
-                          ),
-                          foregroundColor: MaterialStateProperty.all(
-                            Colors.white,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const AdminDashBoard(),
+                          child: const Text("Register"),
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              const Color(0xff3195D8),
                             ),
-                          );
-                        },
-                      ),
+                            foregroundColor: MaterialStateProperty.all(
+                              Colors.white,
+                            ),
+                          ),
+                          onPressed: () => signUpUser()),
                     ),
                     const SizedBox(
                       height: 10,
@@ -171,10 +137,10 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text('Dont`t have an account?'),
+                        const Text('Already have an account?'),
                         TextButton(
                           child: const Text(
-                            "Register",
+                            "Login",
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -185,7 +151,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const AdminLoginScreen()),
+                                      const UserLoginScreen()),
                             );
 
                             //signup screen
@@ -202,27 +168,4 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
       ),
     );
   }
-
-  OutlineInputBorder myinputborder() {
-    //return type is OutlineInputBorder
-    return const OutlineInputBorder(
-        //Outline border type for TextFeild
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        borderSide: BorderSide(
-          color: Color.fromARGB(255, 66, 160, 189),
-          width: 3,
-        ));
-  }
-
-  OutlineInputBorder myfocusborder() {
-    return const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        borderSide: BorderSide(
-          color: Color.fromARGB(255, 64, 166, 184),
-          width: 3,
-        ));
-  }
-
-  //create a function like this so that you can use it wherever you want
-
 }

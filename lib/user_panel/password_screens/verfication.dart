@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:login/main.dart';
 import 'package:login/user_panel/password_screens/resetpassward.dart';
 import 'package:otp_text_field/otp_field.dart';
 
-class verification extends StatefulWidget {
-  const verification({Key? key}) : super(key: key);
+class VerificationScreen extends StatefulWidget {
+  const VerificationScreen({Key? key}) : super(key: key);
 
   @override
-  State<verification> createState() => _verificationState();
+  State<VerificationScreen> createState() => _VerificationScreenState();
 }
 
-class _verificationState extends State<verification> {
+class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +65,7 @@ class _verificationState extends State<verification> {
                 style: const TextStyle(fontSize: 17),
                 textFieldAlignment: MainAxisAlignment.spaceAround,
                 onCompleted: (pin) {
-                  print("Completed: " + pin);
+                  displayMessage("Completed: " + pin);
                 },
               ),
               const SizedBox(
@@ -78,7 +79,7 @@ class _verificationState extends State<verification> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const resetpassward()),
+                          builder: (context) => const ResetPasswordScreen()),
                     );
                   },
                   child: const Text(

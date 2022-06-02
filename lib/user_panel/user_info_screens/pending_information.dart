@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:login/components_app/app_drawer.dart';
 
-class pending_information extends StatefulWidget {
-  const pending_information({Key? key}) : super(key: key);
+class PendingInformationScreen extends StatefulWidget {
+  const PendingInformationScreen({Key? key}) : super(key: key);
 
   @override
-  State<pending_information> createState() => _pending_informationState();
+  State<PendingInformationScreen> createState() =>
+      _PendingInformationScreenState();
 }
 
-class _pending_informationState extends State<pending_information> {
+class _PendingInformationScreenState extends State<PendingInformationScreen> {
   get iconSize => null;
 
   @override

@@ -1,30 +1,40 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:login/components_app/app_drawer.dart';
+import 'package:login/components_app/reusable_textfield.dart';
+import 'package:login/main.dart';
 
-import 'file_list.dart';
-
-class makecomplaint extends StatefulWidget {
-  const makecomplaint({Key? key}) : super(key: key);
+class MakeComplaintScreen extends StatefulWidget {
+  const MakeComplaintScreen({Key? key}) : super(key: key);
 
   @override
-  State<makecomplaint> createState() => _makecomplaintState();
+  State<MakeComplaintScreen> createState() => _MakeComplaintScreenState();
 }
 
-class _makecomplaintState extends State<makecomplaint> {
-  FilePickerResult? result;
-  PlatformFile? file;
-  // var _currencies = [
-  //   "Food",
-  //   "Transport",
-  //   "Personal",
-  //   "Shopping",
-  //   "Medical",
-  //   "Rent",
-  //   "Movie",
-  //   "Salary"
-  // ];
-  // var _currentSelectedValue = "";
+class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
+  List<String> categoryItems = ['Student', 'Faculty', 'Other'];
+  String? selectedItem;
+  File? _image;
+  final picker = ImagePicker();
+  final TextEditingController _subController = TextEditingController();
+  final TextEditingController _natureController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  Future pickImage() async {
+    try {
+      final pickedImage = await picker.pickImage(source: ImageSource.camera);
+
+      setState(() {
+        if (pickedImage != null) {
+          _image = File(pickedImage.path);
+        }
+      });
+    } on Exception catch (e) {
+      displayMessage(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,95 +62,82 @@ class _makecomplaintState extends State<makecomplaint> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Flexible(
-                    child: TextFormField(
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 19, 18, 18)),
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "Categories",
-                        labelText: "Enter Your Categories",
-                      ),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+            child: Column(
+              children: [
+                DropdownButtonFormField<String>(
+                  hint: Text(
+                    'Please Select',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).hintColor,
                     ),
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  const Flexible(
-                    child: TextField(
-                      style: TextStyle(color: Color.fromARGB(255, 19, 18, 18)),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Sub Categories",
-                        hintText: "Enter a Sub-Catergories",
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [],
-                ),
-              ),
-              const TextField(
-                style: TextStyle(color: Color.fromARGB(255, 19, 18, 18)),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Nature of Complaint",
-                  hintText: "Regarding to...",
-                ),
-              ),
-              const TextField(
-                style: TextStyle(color: Color.fromARGB(255, 19, 18, 18)),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Description",
-                  hintText: "Feel free to write. Your complaint is secure.",
-                  //contentPadding: EdgeInsets.symmetric(vertical: 50),
-                ),
-              ),
-              const TextField(
-                style: TextStyle(color: Color.fromARGB(255, 19, 18, 18)),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Regarding File",
-                  hintText: "Regarding to...",
-                ),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    pickFiles();
+                  items: categoryItems
+                      .map(
+                        (item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                  value: selectedItem,
+                  onChanged: (value) {
+                    selectedItem = value as String;
                   },
-                  child: const Text('Pick File')),
-            ]),
+                ),
+                ReusableTextField(
+                  labelText: 'Sub Category',
+                  controller: _subController,
+                  obsecureText: false,
+                ),
+                ReusableTextField(
+                  labelText: 'Nature of the Complaint',
+                  controller: _natureController,
+                  obsecureText: false,
+                ),
+                ReusableTextField(
+                  labelText: 'Description',
+                  controller: _descriptionController,
+                  obsecureText: false,
+                ),
+                Center(
+                  child: _image == null
+                      ? ElevatedButton(
+                          onPressed: () {
+                            pickImage();
+                          },
+                          child: const Text('Pick File'),
+                        )
+                      : ClipRRect(
+                          child: Image.file(
+                            _image!,
+                            scale: 5,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
+                        ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const UserPendingComplainsScreens()));
+                    },
+                    child: const Text('Submit'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
-  }
-
-  void pickFiles() async {
-    result = await FilePicker.platform.pickFiles(allowMultiple: true);
-    if (result == null) return;
-
-    loadSelectedFile(result!.files);
-  }
-
-  void loadSelectedFile(List<PlatformFile> files) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => FileList(files: files, onOpenedFile: viewFile)));
-  }
-
-  void viewFile(PlatformFile file) {
-    //OpenFile.open(file.path);
   }
 }

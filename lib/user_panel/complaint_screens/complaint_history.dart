@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:login/components_app/app_drawer.dart';
 
-class complaint_history extends StatefulWidget {
-  const complaint_history({Key? key}) : super(key: key);
+class ComplaintHistory extends StatefulWidget {
+  const ComplaintHistory({Key? key}) : super(key: key);
 
   @override
-  State<complaint_history> createState() => _complaint_historyState();
+  State<ComplaintHistory> createState() => _ComplaintHistoryState();
 }
 
-class _complaint_historyState extends State<complaint_history> {
+class _ComplaintHistoryState extends State<ComplaintHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

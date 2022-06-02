@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login/options_screen.dart';
 import 'package:login/user_panel/complaint_screens/makecomplaint.dart';
@@ -16,6 +17,14 @@ class MyAppDrawer extends StatefulWidget {
 class _MyAppDrawerState extends State<MyAppDrawer> {
   final ImageProvider? userImage = const NetworkImage(
       'https://media.istockphoto.com/photos/hot-air-balloons-flying-over-the-botan-canyon-in-turkey-picture-id1297349747?s=612x612');
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _signOut(BuildContext context) async {
+    await _auth.signOut();
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const OptionsScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +69,8 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const makecomplaint()),
+                MaterialPageRoute(
+                    builder: (context) => const MakeComplaintScreen()),
               );
             },
           ),
@@ -122,7 +132,8 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const personalinfo()),
+                MaterialPageRoute(
+                    builder: (context) => const PersonalInformationScreen()),
               );
             },
           ),
@@ -139,7 +150,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const change_Passward()),
+                    builder: (context) => const ChangeUserPassword()),
               );
             },
           ),
@@ -147,10 +158,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
             leading: const Icon(Icons.logout),
             title: const Text("Log Out"),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const OptionsScreen()),
-              );
+              _signOut(context);
             },
           ),
         ],
@@ -215,7 +223,12 @@ class _UserCompletedComplaintsScreenState
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            children: const [ComplaintCard(), ComplaintCard(), ComplaintCard()],
+            children: const [
+              ComplaintCard(),
+              ComplaintCard(),
+              ComplaintCard(),
+              ComplaintCard()
+            ],
           ),
         ),
       ),
@@ -273,7 +286,12 @@ class _UserInProgressComplaintsScreenState
       body: SingleChildScrollView(
         child: Center(
           child: Column(
-            children: const [ComplaintCard(), ComplaintCard(), ComplaintCard()],
+            children: const [
+              ComplaintCard(),
+              ComplaintCard(),
+              ComplaintCard(),
+              ComplaintCard(),
+            ],
           ),
         ),
       ),
