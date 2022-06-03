@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login/options_screen.dart';
-import 'package:login/user_panel/complaint_screens/makecomplaint.dart';
-import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
-import 'package:login/user_panel/password_screens/change_passward.dart';
-import 'package:login/user_panel/user_info_screens/personalinfo.dart';
-import 'complaint_card.dart';
+import '../cms_user_panel/complaint_screens/cms_screen_user_makecomplaint.dart';
+import '../cms_user_panel/complaint_screens/cms_screen_user_pending.dart';
+import '../cms_user_panel/complaint_screens/cms_user_screen_in_progress.dart';
+import '../cms_user_panel/dashboard_screens/cms_screen_user_dashboard.dart';
+import '../cms_user_panel/password_screens/cms_screen_user_change_passward.dart';
+import '../cms_user_panel/user_info_screens/cms_screen_user_personalinfo.dart';
+import 'cms_complaint_card.dart';
 
 class MyAppDrawer extends StatefulWidget {
   const MyAppDrawer({Key? key}) : super(key: key);
@@ -228,69 +230,6 @@ class _UserCompletedComplaintsScreenState
               ComplaintCard(),
               ComplaintCard(),
               ComplaintCard()
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class UserPendingComplainsScreens extends StatefulWidget {
-  const UserPendingComplainsScreens({Key? key}) : super(key: key);
-
-  @override
-  State<UserPendingComplainsScreens> createState() =>
-      _UserPendingComplainsScreensState();
-}
-
-class _UserPendingComplainsScreensState
-    extends State<UserPendingComplainsScreens> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Pending Complaints'),
-        centerTitle: true,
-      ),
-      drawer: const MyAppDrawer(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: const [ComplaintCard(), ComplaintCard(), ComplaintCard()],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class UserInProgressComplaintsScreen extends StatefulWidget {
-  const UserInProgressComplaintsScreen({Key? key}) : super(key: key);
-
-  @override
-  State<UserInProgressComplaintsScreen> createState() =>
-      _UserInProgressComplaintsScreenState();
-}
-
-class _UserInProgressComplaintsScreenState
-    extends State<UserInProgressComplaintsScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('In Progress User Complaints'),
-        centerTitle: true,
-      ),
-      drawer: const MyAppDrawer(),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: const [
-              ComplaintCard(),
-              ComplaintCard(),
-              ComplaintCard(),
-              ComplaintCard(),
             ],
           ),
         ),

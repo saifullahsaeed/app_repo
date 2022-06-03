@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login/admin_panel/admin_complaints/completed_complaints.dart';
 import 'package:login/admin_panel/admin_complaints/in_progress_complaints.dart';
 import 'package:login/admin_panel/admin_complaints/pending_complaints.dart';
-import 'package:login/components_app/dashboard_card.dart';
+import 'package:login/components_app/cms_dashboard_card.dart';
 
 import '../admin_drawer.dart';
 

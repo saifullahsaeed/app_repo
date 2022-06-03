@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:login/main.dart';
-import 'package:login/user_panel/password_screens/resetpassward.dart';
 import 'package:otp_text_field/otp_field.dart';
+
+import 'cms_screen_user_reset_passward.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({Key? key}) : super(key: key);

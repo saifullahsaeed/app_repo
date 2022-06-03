@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:login/main.dart';
-import '../../components_app/reusable_textfield.dart';
-import 'forgotpassward.dart';
-import 'login.dart';
+import '../../components_app/cms_reusable_textfield.dart';
+import '../dashboard_screens/cms_screen_user_dashboard.dart';
+import 'cms_screen_user_forgot_passward.dart';
+import 'cms_screen_user_login.dart';
 
 class UserRegistration extends StatefulWidget {
   const UserRegistration({Key? key}) : super(key: key);
@@ -14,14 +15,38 @@ class UserRegistration extends StatefulWidget {
 }
 
 class _UserRegistrationState extends State<UserRegistration> {
-  final databaseReference = FirebaseDatabase.instance.ref().child('Users');
-
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void signUpUser() {
-    try {} on FirebaseAuthException catch (e) {
+  final _auth = FirebaseAuth.instance;
+  late final uid;
+  void signUpUser({required String email, required String password}) async {
+    try {
+      final newUser = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      if (newUser.user != null) {
+        uid = _auth.currentUser!.uid;
+
+        Map<String, dynamic> userData = {
+          'uid': uid,
+          'email': _emailController.text,
+          'password': _passwordController.text,
+          'role': 'user',
+        };
+
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(uid.toString())
+            .set(userData);
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const UserDashBoardScreen()));
+      }
+    } on FirebaseAuthException catch (e) {
       displayMessage(e.toString());
     }
   }
@@ -129,7 +154,9 @@ class _UserRegistrationState extends State<UserRegistration> {
                               Colors.white,
                             ),
                           ),
-                          onPressed: () => signUpUser()),
+                          onPressed: () => signUpUser(
+                              email: _emailController.text,
+                              password: _passwordController.text)),
                     ),
                     const SizedBox(
                       height: 10,

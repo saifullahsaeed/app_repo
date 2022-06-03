@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/components_app/app_drawer.dart';
-import 'package:login/user_panel/dashboard_screens/app_dashboard.dart';
+import 'package:login/components_app/cms_user_app_drawer.dart';
+
+import '../dashboard_screens/cms_screen_user_dashboard.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({Key? key}) : super(key: key);

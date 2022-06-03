@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:login/admin_panel/admin_dashboard/admin_dashboard.dart';
 import 'package:login/main.dart';
 import 'package:login/options_screen.dart';
-import 'package:login/user_panel/password_screens/forgotpassward.dart';
+
+import '../cms_user_panel/password_screens/cms_screen_user_forgot_passward.dart';
 
 class AdminLoginScreen extends StatefulWidget {
   const AdminLoginScreen({Key? key}) : super(key: key);

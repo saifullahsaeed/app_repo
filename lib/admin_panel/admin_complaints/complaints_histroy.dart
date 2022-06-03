@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login/components_app/complaint_card.dart';
+import 'package:login/components_app/cms_complaint_card.dart';
 
 import '../admin_drawer.dart';
 

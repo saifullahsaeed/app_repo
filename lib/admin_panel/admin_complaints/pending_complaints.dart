@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/admin_panel/admin_drawer.dart';
-import 'package:login/components_app/complaint_card.dart';
+import 'package:login/components_app/cms_complaint_card.dart';
 
 class PendingComplainsScreens extends StatefulWidget {
   const PendingComplainsScreens({

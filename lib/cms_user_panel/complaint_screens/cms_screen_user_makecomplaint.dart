@@ -1,10 +1,15 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:login/components_app/app_drawer.dart';
-import 'package:login/components_app/reusable_textfield.dart';
+import 'package:login/app_constants.dart';
+import 'package:login/components_app/cms_user_app_drawer.dart';
+import 'package:login/components_app/cms_reusable_textfield.dart';
 import 'package:login/main.dart';
+
+import 'cms_screen_user_pending.dart';
 
 class MakeComplaintScreen extends StatefulWidget {
   const MakeComplaintScreen({Key? key}) : super(key: key);
@@ -14,8 +19,9 @@ class MakeComplaintScreen extends StatefulWidget {
 }
 
 class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
+  //final _fAuth = FirebaseAuth.instance;
   List<String> categoryItems = ['Student', 'Faculty', 'Other'];
-  String? selectedItem;
+  String? _selectedItem;
   File? _image;
   final picker = ImagePicker();
   final TextEditingController _subController = TextEditingController();
@@ -34,6 +40,49 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
     } on Exception catch (e) {
       displayMessage(e.toString());
     }
+  }
+
+  final _firestore = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
+  final _storeageRef = FirebaseStorage.instance.ref();
+
+  Future addComplaintData(File _image) async {
+    String _imageUrl;
+    final ref = _storeageRef
+        .child('complainImages')
+        .child(DateTime.now().microsecondsSinceEpoch.toString() + '.jpg');
+    await ref.putFile(_image);
+    _imageUrl = await ref.getDownloadURL();
+
+    final uid = _auth.currentUser!.uid;
+    //final snapshots = _firestore.collection('Users').doc(uid).get();
+
+    Map<String, dynamic> complaintData = {
+      'userName': 'sadasda',
+      'complaintCategory': _selectedItem,
+      'subCategory': _subController.text,
+      'complaintNature': _natureController.text,
+      'date': DateTime.now().toString(),
+      'description': _descriptionController.text,
+      'complaintId': DateTime.now().microsecondsSinceEpoch.toString(),
+      'isSolved': false,
+      'imageUrl': _imageUrl,
+    };
+
+    await _firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('UserComplains')
+        .add(complaintData)
+        .then((value) {
+      displayMessage('Success');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const UserPendingComplainsScreens(),
+        ),
+      );
+    });
   }
 
   @override
@@ -66,6 +115,9 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
             child: Column(
               children: [
                 DropdownButtonFormField<String>(
+                  decoration: const InputDecoration(
+                      enabledBorder: outlineInputBorder,
+                      focusedBorder: outlineInputFocusBorder),
                   hint: Text(
                     'Please Select',
                     style: TextStyle(
@@ -83,9 +135,9 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
                         ),
                       )
                       .toList(),
-                  value: selectedItem,
+                  value: _selectedItem,
                   onChanged: (value) {
-                    selectedItem = value as String;
+                    _selectedItem = value as String;
                   },
                 ),
                 ReusableTextField(
@@ -124,11 +176,15 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      addComplaintData(_image as File).then((value) {
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const UserPendingComplainsScreens()));
+                            builder: (context) =>
+                                const UserPendingComplainsScreens(),
+                          ),
+                        );
+                      });
                     },
                     child: const Text('Submit'),
                   ),

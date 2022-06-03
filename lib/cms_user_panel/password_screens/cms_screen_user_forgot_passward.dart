@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login/user_panel/password_screens/verfication.dart';
+
+import 'cms_screen_user_verfication.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);

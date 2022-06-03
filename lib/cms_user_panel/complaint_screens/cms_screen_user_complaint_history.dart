@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:login/components_app/app_drawer.dart';
+import 'package:login/components_app/cms_user_app_drawer.dart';
 
-class PendingInformationScreen extends StatefulWidget {
-  const PendingInformationScreen({Key? key}) : super(key: key);
+class ComplaintHistory extends StatefulWidget {
+  const ComplaintHistory({Key? key}) : super(key: key);
 
   @override
-  State<PendingInformationScreen> createState() =>
-      _PendingInformationScreenState();
+  State<ComplaintHistory> createState() => _ComplaintHistoryState();
 }
 
-class _PendingInformationScreenState extends State<PendingInformationScreen> {
-  get iconSize => null;
-
+class _ComplaintHistoryState extends State<ComplaintHistory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Pending_complaint"),
+          title: const Text("Complaint_History"),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
