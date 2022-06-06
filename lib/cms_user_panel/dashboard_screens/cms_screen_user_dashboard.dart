@@ -7,6 +7,7 @@ import '../complaint_screens/cms_user_screen_in_progress.dart';
 
 class UserDashBoardScreen extends StatefulWidget {
   const UserDashBoardScreen({Key? key}) : super(key: key);
+  static const routeName = 'cms_screen_user_dashboard';
 
   @override
   State<UserDashBoardScreen> createState() => _UserDashBoardScreenState();

@@ -1,14 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:login/cms_user_panel/password_screens/cms_screen_user_signupscreen.dart';
 import 'package:login/components_app/cms_reusable_textfield.dart';
 import 'package:login/main.dart';
+import 'package:provider/provider.dart';
+import '../../providers/userp.dart';
 import '../dashboard_screens/cms_screen_user_dashboard.dart';
 import 'cms_screen_user_forgot_passward.dart';
 
 class UserLoginScreen extends StatefulWidget {
   const UserLoginScreen({Key? key}) : super(key: key);
+
+  static const routeName =
+      '/cms_user_panel/password_screens/cms_screen_user_login';
 
   @override
   State<UserLoginScreen> createState() => _UserLoginScreenState();
@@ -20,15 +26,6 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final databaseReference = FirebaseDatabase.instance.ref().child('Users');
-
-  static void checkSignedIn(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const UserDashBoardScreen()));
-    }
-  }
-
   Future signInUser(BuildContext context, String email, String password) async {
     try {
       final newUser = await _auth.signInWithEmailAndPassword(
@@ -48,12 +45,23 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
   @override
   void initState() {
     super.initState();
-    checkSignedIn(context);
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    Future<bool?> checkLogin =
+        Provider.of<UserP>(context).checkSignedIn(context);
+    checkLogin.then((value) {
+      if (value != null) {
+        if (value) {
+          if (kDebugMode) {
+            print(value);
+          }
+          Navigator.pushNamed(context, UserDashBoardScreen.routeName);
+        }
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
