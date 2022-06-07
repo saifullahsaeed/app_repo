@@ -8,8 +8,10 @@ import 'package:login/app_constants.dart';
 import 'package:login/components_app/cms_user_app_drawer.dart';
 import 'package:login/components_app/cms_reusable_textfield.dart';
 import 'package:login/main.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/complaints.dart';
+import '../../providers/complaintp.dart';
 import 'cms_screen_user_pending.dart';
 
 class MakeComplaintScreen extends StatefulWidget {
@@ -43,10 +45,6 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
     }
   }
 
-  final _firestore = FirebaseFirestore.instance;
-  final _auth = FirebaseAuth.instance;
-  final _storeageRef = FirebaseStorage.instance.ref();
-
   Future addComplaintData(File _image) async {
     final complain = Complain(
       catagory: _selectedItem.toString(),
@@ -56,6 +54,7 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
       imageUrl: _image,
       complaintNature: _natureController.text,
     );
+    Provider.of<ComplaintP>(context, listen: false).addComplaint(complain);
   }
 
   @override
@@ -81,10 +80,10 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
         ),
       ),
       drawer: const MyAppDrawer(),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+          child: Form(
             child: Column(
               children: [
                 DropdownButtonFormField<String>(
@@ -113,10 +112,21 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
                     _selectedItem = value as String;
                   },
                 ),
-                ReusableTextField(
-                  labelText: 'Sub Category',
-                  controller: _subController,
-                  obsecureText: false,
+                const SizedBox(
+                  height: 10,
+                ),
+                //make textfield for subcatagory
+                TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Sub Catagory',
+                    labelStyle: TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).hintColor,
+                  ),
                 ),
                 ReusableTextField(
                   labelText: 'Nature of the Complaint',

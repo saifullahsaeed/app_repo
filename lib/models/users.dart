@@ -28,7 +28,7 @@ class Users {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(Object? value) {
     return {
       'fname': fname,
       'lname': lname,

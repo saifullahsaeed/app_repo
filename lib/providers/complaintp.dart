@@ -13,7 +13,6 @@ class ComplaintP with ChangeNotifier {
   void addComplaint(Complain complaint) {
     _complaints.add(complaint);
     _transactions.addComplaint(complaint);
-    notifyListeners();
   }
 
   //get all categories from database

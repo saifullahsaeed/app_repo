@@ -61,7 +61,8 @@ class Transactions {
           FirebaseDatabase.instance.reference().child('Users');
       databaseReference.once().then((snapshot) {
         var user = snapshot.snapshot.value;
-        Map<String, dynamic> converted = Users.toJson(snapshot.snapshot.value);
+        Users? values;
+        Users converted = values?.toJson(snapshot.snapshot.value) as Users;
         return converted;
       });
     } catch (e) {

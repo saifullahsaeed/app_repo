@@ -34,25 +34,24 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final userid = _auth.currentUser?.uid;
-    final userData = Provider.of<UserP>(context).getUserInfo(userid!);
-    Fluttertoast.showToast(msg: userData.toString());
+    String? email = _auth.currentUser?.email;
+
     return Drawer(
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const Center(
+          Center(
             child: UserAccountsDrawerHeader(
-              currentAccountPicture: Align(
+              currentAccountPicture: const Align(
                 alignment: Alignment.center,
                 child: CircleAvatar(
                   radius: 40.0,
                   backgroundImage: AssetImage('assets/user_image_ph.png'),
                 ),
               ),
-              accountName: Text("Heerfab5"),
-              accountEmail: Text("irsatanoli2000@gmail.com"),
+              accountName: const Text(""),
+              accountEmail: Text("$email"),
             ),
           ),
           ListTile(
