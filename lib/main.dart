@@ -9,6 +9,8 @@ import 'package:login/options_screen.dart';
 import 'package:login/providers/userp.dart';
 import 'package:provider/provider.dart';
 
+import 'providers/complaintp.dart';
+
 displayMessage(String message) {
   Fluttertoast.showToast(msg: message);
 }
@@ -29,7 +31,10 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => UserP(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ComplaintP(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

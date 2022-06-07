@@ -51,6 +51,15 @@ class _UserRegistrationState extends State<UserRegistration> {
     }
   }
 
+  //dispose controller
+  @override
+  void dispose() {
+    _userNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -145,7 +154,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                       width: size.width,
                       padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
                       child: ElevatedButton(
-                          child: const Text("Register"),
+                          child: const Text("Register User"),
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                               const Color(0xff3195D8),

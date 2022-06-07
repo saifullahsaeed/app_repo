@@ -46,44 +46,7 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
   final _auth = FirebaseAuth.instance;
   final _storeageRef = FirebaseStorage.instance.ref();
 
-  Future addComplaintData(File _image) async {
-    String _imageUrl;
-    final ref = _storeageRef
-        .child('complainImages')
-        .child(DateTime.now().microsecondsSinceEpoch.toString() + '.jpg');
-    await ref.putFile(_image);
-    _imageUrl = await ref.getDownloadURL();
-
-    final uid = _auth.currentUser!.uid;
-    //final snapshots = _firestore.collection('Users').doc(uid).get();
-
-    Map<String, dynamic> complaintData = {
-      'userName': 'sadasda',
-      'complaintCategory': _selectedItem,
-      'subCategory': _subController.text,
-      'complaintNature': _natureController.text,
-      'date': DateTime.now().toString(),
-      'description': _descriptionController.text,
-      'complaintId': DateTime.now().microsecondsSinceEpoch.toString(),
-      'isSolved': false,
-      'imageUrl': _imageUrl,
-    };
-
-    await _firestore
-        .collection('Users')
-        .doc(uid)
-        .collection('UserComplains')
-        .add(complaintData)
-        .then((value) {
-      displayMessage('Success');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const UserPendingComplainsScreens(),
-        ),
-      );
-    });
-  }
+  Future addComplaintData(File _image) async {}
 
   @override
   Widget build(BuildContext context) {

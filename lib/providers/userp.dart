@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import '../models/users.dart';
 import '../transactions/transactions.dart';
 
 class UserP with ChangeNotifier {
@@ -11,6 +13,21 @@ class UserP with ChangeNotifier {
   void setUserId(String userId) {
     _userId = userId;
     notifyListeners();
+  }
+
+  // register user
+  Future<String?> signUpUser(Users user) async {
+    try {
+      final newUser = await _transactions.signUpUser(user);
+      if (newUser != null) {
+        setUserId(newUser);
+        return newUser;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   //login

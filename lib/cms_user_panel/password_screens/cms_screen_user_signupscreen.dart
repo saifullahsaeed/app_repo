@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:login/components_app/cms_reusable_textfield.dart';
+import 'package:provider/provider.dart';
 
 import '../../main.dart';
+import '../../models/users.dart';
+import '../../providers/userp.dart';
 import '../dashboard_screens/cms_screen_user_dashboard.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -29,47 +33,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void signUpUser() async {
     try {
-      final newUser = await _auth.createUserWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text);
-
-      if (newUser.user != null) {
-        uid = _auth.currentUser!.uid;
-
-        Map<String, dynamic> userData = {
-          'uid': uid,
-          'firstName': _firtNameController.text,
-          'lastName': _lastNameController.text,
-          'userName': _userNameController.text,
-          'email': _emailController.text,
-          'phoneNumber': _phoneNumberController.text,
-          'password': _passwordController.text,
-          'confirmPassword': _confirmPassController.text,
-          'role': 'user',
-        };
-
-        await FirebaseFirestore.instance
-            .collection('Users')
-            .doc(uid)
-            .set(userData)
-            .then((_) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const UserDashBoardScreen()));
-        });
-        _firtNameController.clear();
-        _lastNameController.clear();
-        _userNameController.clear();
-        _emailController.clear();
-        _phoneNumberController.clear();
-        _passwordController.clear();
-        _confirmPassController.clear();
-      } else {
-        displayMessage("Error Occured");
+      //make new Users object
+      var userData = Users(
+        fname: _firtNameController.text,
+        lname: _lastNameController.text,
+        username: _userNameController.text,
+        email: _emailController.text,
+        phone: _phoneNumberController.text,
+        password: _passwordController.text,
+      );
+      Provider.of<UserP>(context, listen: false).signUpUser(userData);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
       }
-    } on FirebaseAuthException catch (e) {
-      print(e.toString());
-      displayMessage(e.toString());
     }
   }
 
