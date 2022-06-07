@@ -75,11 +75,7 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
             leading: const Icon(Icons.file_copy_outlined),
             title: const Text("Make Complaint"),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MakeComplaintScreen()),
-              );
+              Navigator.pushNamed(context, MakeComplaintScreen.routeName);
             },
           ),
           ListTile(

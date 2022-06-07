@@ -132,23 +132,17 @@ class Transactions {
           .child('complaints/${complaint.imageUrl.path.split('/').last}');
       final uploadTask = storageReference.putFile(complaint.imageUrl);
       print('File Uploaded');
-      storageReference.getDownloadURL().then((fileURL) {
-        _imageUrl = fileURL;
-      });
+
+      final databaseReference =
+          FirebaseDatabase.instance.reference().child('Complaints');
+      final downloadUrl = await uploadTask.then((p0) => {
+            p0.ref.getDownloadURL().then((p1) => {
+                  _imageUrl = p1,
+                })
+          });
     } else {
       _imageUrl = null;
     }
-    final databaseReference =
-        FirebaseDatabase.instance.reference().child('Complaints');
-    databaseReference.push().set({
-      'catagory': complaint.catagory,
-      'subCatagory': complaint.subCatagory,
-      'date': complaint.date,
-      'description': complaint.description,
-      'imageUrl': _imageUrl,
-      'isSolved': complaint.isSolved,
-      'status': complaint.status,
-    });
   }
 
   //get all categories from database
@@ -188,6 +182,32 @@ class Transactions {
         .child('Complaints')
         .child(complaintId)
         .child('status');
-    databaseReference.set('resolved');
+
+    databaseReference.set(1);
+    final databaseReference2 = FirebaseDatabase.instance
+        .reference()
+        .child('Complaints')
+        .child(complaintId)
+        .child('isSolved');
+    databaseReference2.set(true);
+  }
+
+  //get all complaints of logged in user
+  getUserComplaints() async {
+    final databaseReference = FirebaseDatabase.instance
+        .reference()
+        .child('Complaints')
+        .orderByChild('userId')
+        .equalTo(_auth.currentUser?.uid);
+    return await databaseReference.once();
+  }
+
+  //delete complaint from database
+  deleteComplaint(String complaintId) async {
+    final databaseReference = FirebaseDatabase.instance
+        .reference()
+        .child('Complaints')
+        .child(complaintId);
+    databaseReference.remove();
   }
 }

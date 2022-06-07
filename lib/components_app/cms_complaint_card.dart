@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/complaintp.dart';
 
 const kTextStyle = TextStyle(fontWeight: FontWeight.w500, fontSize: 16);
 
@@ -65,7 +68,19 @@ class _ComplaintCardState extends State<ComplaintCard> {
                       ],
                     ),
                     ElevatedButton(
-                      onPressed: widget.onPressed,
+                      onPressed: () {
+                        Consumer<ComplaintP>(
+                          builder: (context, complaintP, child) {
+                            return TextButton(
+                              onPressed: () {
+                                complaintP.deleteComplaint(
+                                    widget.complaintId as String);
+                              },
+                              child: Text('View Complaints'),
+                            );
+                          },
+                        );
+                      },
                       child: Text(
                         '${widget.buttonText}',
                         style: const TextStyle(color: Colors.white),

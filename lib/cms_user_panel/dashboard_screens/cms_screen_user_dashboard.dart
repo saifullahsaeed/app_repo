@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:login/components_app/cms_user_app_drawer.dart';
+import 'package:login/models/complaints.dart';
+import 'package:login/providers/complaintp.dart';
+import 'package:provider/provider.dart';
 
 import '../../components_app/cms_dashboard_card.dart';
 import '../complaint_screens/cms_screen_user_pending.dart';
@@ -15,7 +18,23 @@ class UserDashBoardScreen extends StatefulWidget {
 
 class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Provider.of<ComplaintP>(context, listen: false).getUserComplaints();
+  }
+
   Widget build(BuildContext context) {
+    List<Complain> complaints = Provider.of<ComplaintP>(context).complaints;
+    //check no of resolved complaints
+    int resolvedComplaints = 0;
+    for (var i = 0; i < complaints.length; i++) {
+      if (complaints[i].isSolved == true) {
+        resolvedComplaints++;
+      }
+    }
+    int pendingComplaints = complaints.length - resolvedComplaints;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -36,7 +55,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                   crossAxisCount: 2, crossAxisSpacing: 16),
               children: [
                 DashBoardCard(
-                  items: 2,
+                  items: pendingComplaints,
                   cardTitle: 'Pending Complaints',
                   onPressed: () {
                     Navigator.push(
@@ -47,7 +66,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                   },
                 ),
                 DashBoardCard(
-                  items: 2,
+                  items: pendingComplaints,
                   cardTitle: 'In-progress Complaints',
                   onPressed: () {
                     Navigator.push(
@@ -58,7 +77,7 @@ class _UserDashBoardScreenState extends State<UserDashBoardScreen> {
                   },
                 ),
                 DashBoardCard(
-                  items: 2,
+                  items: resolvedComplaints,
                   cardTitle: 'Completed Complaints',
                   onPressed: () {
                     Navigator.push(

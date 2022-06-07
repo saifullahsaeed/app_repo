@@ -16,7 +16,7 @@ import 'cms_screen_user_pending.dart';
 
 class MakeComplaintScreen extends StatefulWidget {
   const MakeComplaintScreen({Key? key}) : super(key: key);
-
+  static const routeName = '/make-complaint';
   @override
   State<MakeComplaintScreen> createState() => _MakeComplaintScreenState();
 }
@@ -117,6 +117,7 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
                 ),
                 //make textfield for subcatagory
                 TextField(
+                  controller: _subController,
                   decoration: const InputDecoration(
                     labelText: 'Sub Catagory',
                     labelStyle: TextStyle(

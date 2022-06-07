@@ -65,7 +65,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
           if (kDebugMode) {
             print(value);
           }
-          Navigator.pushNamed(context, UserDashBoardScreen.routeName);
+          Navigator.popAndPushNamed(context, UserDashBoardScreen.routeName);
         }
       }
     });

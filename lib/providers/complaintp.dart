@@ -20,4 +20,18 @@ class ComplaintP with ChangeNotifier {
     final databaseReference = _transactions.getCategories();
     return await databaseReference.once();
   }
+
+  //get complaints of logged in user
+  Future getUserComplaints() async {
+    final databaseReference = _transactions.getUserComplaints();
+    _complaints.add(databaseReference);
+    notifyListeners();
+  }
+
+  //delete complaint
+  Future deleteComplaint(String complaintId) async {
+    final databaseReference = _transactions.deleteComplaint(complaintId);
+    //pop from list
+    _complaints.removeWhere((complaint) => complaint.id == complaintId);
+  }
 }

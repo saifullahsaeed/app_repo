@@ -43,6 +43,8 @@ class MyApp extends StatelessWidget {
             UserLoginScreen.routeName: (context) => const UserLoginScreen(),
             UserDashBoardScreen.routeName: (context) =>
                 const UserDashBoardScreen(),
+            MakeComplaintScreen.routeName: (context) =>
+                const MakeComplaintScreen(),
           },
           theme: ThemeData(
             primarySwatch: Colors.blue,

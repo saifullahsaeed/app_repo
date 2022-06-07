@@ -1,6 +1,7 @@
 import 'dart:io';
 
 class Complain {
+  String? id;
   final String catagory;
   final String subCatagory;
   final String date;
@@ -33,6 +34,7 @@ class Complain {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'catagory': catagory,
       'subCatagory': subCatagory,
       'date': date,

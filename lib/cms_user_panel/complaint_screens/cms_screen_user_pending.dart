@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:login/models/complaints.dart';
+import 'package:login/providers/complaintp.dart';
+import 'package:provider/provider.dart';
 
 import '../../components_app/cms_user_app_drawer.dart';
 import '../../components_app/cms_complaint_card.dart';
@@ -15,26 +18,12 @@ class UserPendingComplainsScreens extends StatefulWidget {
 
 class _UserPendingComplainsScreensState
     extends State<UserPendingComplainsScreens> {
-  final uid = FirebaseAuth.instance.currentUser!.uid;
-  final _firestore = FirebaseFirestore.instance;
-  late final complaintsRef;
-
-  getComplaints() {
-    complaintsRef = _firestore
-        .collection('Users')
-        .doc(uid)
-        .collection('UserComplains')
-        .get()
-        .then((QuerySnapshot snapshot) {
-      for (var documentSnapshot in snapshot.docs) {
-        print(documentSnapshot.data());
-      }
-    });
-    return complaintsRef;
-  }
-
   @override
   Widget build(BuildContext context) {
+    List<Complain> complaints = Provider.of<ComplaintP>(context).complaints;
+    //get all not resolved complaints
+    complaints =
+        complaints.where((complaint) => complaint.isSolved == false).toList();
     return Scaffold(
       appBar: AppBar(
         title: const Text('User Pending Complaints'),
@@ -45,9 +34,16 @@ class _UserPendingComplainsScreensState
         child: Center(
             child: Column(
           children: [
-            ComplaintCard(
-              onPressed: getComplaints,
-            )
+            for (var i = 0; i < complaints.length; i++)
+              ComplaintCard(
+                complaintId: complaints[i].id,
+                complaintCategory: complaints[i].catagory,
+                subCategory: complaints[i].subCatagory,
+                date: complaints[i].date,
+                description: complaints[i].description,
+                imageUrl: complaints[i].imageUrl.toString(),
+                onPressed: () {},
+              ),
           ],
         )),
       ),
