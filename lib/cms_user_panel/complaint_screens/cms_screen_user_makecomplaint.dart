@@ -9,6 +9,7 @@ import 'package:login/components_app/cms_user_app_drawer.dart';
 import 'package:login/components_app/cms_reusable_textfield.dart';
 import 'package:login/main.dart';
 
+import '../../models/complaints.dart';
 import 'cms_screen_user_pending.dart';
 
 class MakeComplaintScreen extends StatefulWidget {
@@ -46,7 +47,16 @@ class _MakeComplaintScreenState extends State<MakeComplaintScreen> {
   final _auth = FirebaseAuth.instance;
   final _storeageRef = FirebaseStorage.instance.ref();
 
-  Future addComplaintData(File _image) async {}
+  Future addComplaintData(File _image) async {
+    final complain = Complain(
+      catagory: _selectedItem.toString(),
+      subCatagory: _subController.text,
+      date: DateTime.now().toString(),
+      description: _descriptionController.text,
+      imageUrl: _image,
+      complaintNature: _natureController.text,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

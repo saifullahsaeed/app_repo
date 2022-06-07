@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -49,6 +50,24 @@ class Transactions {
           backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
+    }
+    return null;
+  }
+
+  //get user info
+  Future<Users?> getUserInfo(String userId) async {
+    try {
+      final databaseReference =
+          FirebaseDatabase.instance.reference().child('Users');
+      databaseReference.once().then((snapshot) {
+        var user = snapshot.snapshot.value;
+        Map<String, dynamic> converted = Users.toJson(snapshot.snapshot.value);
+        return converted;
+      });
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return null;
   }
@@ -121,8 +140,8 @@ class Transactions {
     final databaseReference =
         FirebaseDatabase.instance.reference().child('Complaints');
     databaseReference.push().set({
-      'catagory': complaint.catagory.toJson(),
-      'subCatagory': complaint.subCatagory.toJson(),
+      'catagory': complaint.catagory,
+      'subCatagory': complaint.subCatagory,
       'date': complaint.date,
       'description': complaint.description,
       'imageUrl': _imageUrl,

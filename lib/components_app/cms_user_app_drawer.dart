@@ -1,6 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:login/models/users.dart';
 import 'package:login/options_screen.dart';
+import 'package:login/providers/userp.dart';
+import 'package:provider/provider.dart';
 import '../cms_user_panel/complaint_screens/cms_screen_user_makecomplaint.dart';
 import '../cms_user_panel/complaint_screens/cms_screen_user_pending.dart';
 import '../cms_user_panel/complaint_screens/cms_user_screen_in_progress.dart';
@@ -30,6 +34,9 @@ class _MyAppDrawerState extends State<MyAppDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final userid = _auth.currentUser?.uid;
+    final userData = Provider.of<UserP>(context).getUserInfo(userid!);
+    Fluttertoast.showToast(msg: userData.toString());
     return Drawer(
       child: ListView(
         // Important: Remove any padding from the ListView.

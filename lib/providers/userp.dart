@@ -7,7 +7,7 @@ class UserP with ChangeNotifier {
   Transactions _transactions = Transactions();
 
   late String _userId;
-
+  late Users _user;
   String get userId => _userId;
 
   void setUserId(String userId) {
@@ -49,6 +49,18 @@ class UserP with ChangeNotifier {
         return false;
       }
     });
+  }
+
+  //get user info
+  getUserInfo(String userId) async {
+    try {
+      var data = _transactions.getUserInfo(userId);
+      return data;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   //sign out

@@ -1,13 +1,13 @@
 import 'dart:io';
 
 class Complain {
-  final Catagory catagory;
-  final SubCatagory subCatagory;
+  final String catagory;
+  final String subCatagory;
   final String date;
   final String description;
   final String complaintNature;
   final File imageUrl;
-  final bool isSolved;
+  final bool isSolved = false;
   final int status = 0;
 
   Complain(
@@ -16,17 +16,15 @@ class Complain {
       required this.date,
       required this.description,
       required this.complaintNature,
-      required this.imageUrl,
-      required this.isSolved});
+      required this.imageUrl});
 
   factory Complain.fromJson(Map<String, dynamic> json) {
     return Complain(
-      catagory: Catagory.fromJson(json['catagory']),
-      subCatagory: SubCatagory.fromJson(json['subCatagory']),
+      catagory: json['catagory'],
+      subCatagory: json['subCatagory'],
       date: json['date'],
       description: json['description'],
       imageUrl: json['imageUrl'],
-      isSolved: json['isSolved'],
       complaintNature: json['complaintNature'],
     );
   }
@@ -35,8 +33,8 @@ class Complain {
 
   Map<String, dynamic> toJson() {
     return {
-      'catagory': catagory.toJson(),
-      'subCatagory': subCatagory.toJson(),
+      'catagory': catagory,
+      'subCatagory': subCatagory,
       'date': date,
       'description': description,
       'complaintNature': complaintNature,
